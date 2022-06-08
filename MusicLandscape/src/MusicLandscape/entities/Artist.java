@@ -1,7 +1,6 @@
 package MusicLandscape.entities;
 
-public class Artist
-{
+public class Artist {
     private String name;
 
     public Artist() {
@@ -30,10 +29,10 @@ public class Artist
         return this.name;
     }
 
-    public String toString(){
-        if(this.name==null || this.name.isEmpty()){
+    public String toString() {
+        if (this.name == null || this.name.isEmpty()) {
             return "unknown";
-        }else{
+        } else {
             return this.name;
         }
     }

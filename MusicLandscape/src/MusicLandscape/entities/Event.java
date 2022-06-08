@@ -1,8 +1,5 @@
 package MusicLandscape.entities;
 
-import MusicLandscape.Date;
-import MusicLandscape.Venue;
-
 import java.util.Objects;
 
 public class Event {
@@ -22,26 +19,26 @@ public class Event {
     }
 
     public Event(Event e) {
-        if(e.getArtist()==null){
-            this.artist=new Artist();
-        }else{
-            this.artist=new Artist(e.getArtist());
+        if (e.getArtist() == null) {
+            this.artist = new Artist();
+        } else {
+            this.artist = new Artist(e.getArtist());
         }
 
-        this.attendees=e.getAttendees();
+        this.attendees = e.getAttendees();
 
-        if(e.getDate()==null) {
-            this.date=new Date();
-        }else{
-            this.date=new Date(e.getDate());
+        if (e.getDate() == null) {
+            this.date = new Date();
+        } else {
+            this.date = new Date(e.getDate());
         }
 
-        this.description=e.getDescription();
+        this.description = e.getDescription();
 
-        if(e.getVenue()==null) {
-            this.venue=new Venue();
-        }else{
-            this.venue=new Venue(e.getVenue());
+        if (e.getVenue() == null) {
+            this.venue = new Venue();
+        } else {
+            this.venue = new Venue(e.getVenue());
         }
     }
 
@@ -68,16 +65,16 @@ public class Event {
     }
 
     public Date getDate() {
-        if (this.date != null) {
-            return new Date();
-        }
+//        if (this.date != null) {
+//            return new Date();
+//        }
         return this.date;
     }
 
     public void setDate(Date date) {
-        if (date != null) {
-            date = new Date();
-        }
+//        if (date != null) {
+//            date = new Date();
+//        }
         this.date = date;
     }
 
@@ -98,14 +95,59 @@ public class Event {
     }
 
     public String toString() {
-//        return (this.artist.getName().isEmpty() ? this.artist.getName() : "unknown") +
-//                " @ " + (this.venue.getName().isEmpty() ? this.venue.getName() : "unknown") +
-//                " on " + (this.date.dateString().isEmpty() ? this.date.dateString() : "unknown") +
-//                "\n" + (this.description.isEmpty() ? this.description : "unknown") +
-//                "\n" +
-//                "(" + this.attendees + " attending " +
-//                "(" + this.impact() + "))";
-        return "";
+        String retString="";
+        if(this.artist==null) {
+            retString += "unknown";
+        }else{
+            if(!this.artist.getName().isEmpty()){
+                retString+=this.artist.getName();
+            }else{
+                retString+="unknown";
+            }
+        }
+        retString += " @ ";
+        if(this.venue==null) {
+            retString += "unknown";
+        }else{
+            if(!this.venue.getName().isEmpty()){
+                retString+=this.venue.getName();
+            }else{
+                retString+="unknown";
+            }
+        }
+        retString+=" on ";
+        if(this.date==null){
+            retString+="null";
+        }else{
+            if(!this.date.toString().isEmpty()){
+                retString+=this.date.toString();
+            }else{
+                retString+="null";
+            }
+        }
+        retString+= "\n";
+        if(this.description==null){
+            retString+="";
+        }else{
+            if(!this.description.isEmpty()){
+                retString+=this.description;
+            }else{
+                retString+="";
+            }
+        }
+        retString+="\n";
+        retString+="("+ this.attendees + " attending ";
+        retString+="("+ this.impact() + "))";
+
+        return retString;
+       /* return (this.artist.getName().isEmpty() ? this.artist.getName() : "unknown") +
+                " @ " + (this.venue.getName().isEmpty() ? this.venue.getName() : "unknown") +
+                " on " + (this.date.dateString().isEmpty() ? this.date.dateString() : "unknown") +
+                "\n" + (this.description.isEmpty() ? this.description : "unknown") +
+                "\n" +
+                "(" + this.attendees + " attending " +
+                "(" + this.impact() + "))";*/
+
     }
 
     public int impact() {

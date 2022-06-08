@@ -1,9 +1,5 @@
 package MusicLandscape.entities;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
 public class Concert extends Event {
 
     private int nextIdx;
@@ -14,9 +10,9 @@ public class Concert extends Event {
 
     }
 
-    public boolean addTrack(Track t){
+    public boolean addTrack(Track t) {
 
-        if(t != null){
+        if (t != null) {
 
             ensureCapacity(1);
             setList[nextIdx++] = t;
@@ -30,14 +26,14 @@ public class Concert extends Event {
         this.setList = new Track[0];
     }
 
-    public int nrTracks(){
-        return (nextIdx != 0)?nextIdx:0;
+    public int nrTracks() {
+        return (nextIdx != 0) ? nextIdx : 0;
 
     }
 
     public int duration() {
         int totaldur = 0;
-        if(this.setList == null || this.setList.length == 0) {
+        if (this.setList == null || this.setList.length == 0) {
             return totaldur;
         }
         for (int i = 0; i < this.setList.length; i++) {
@@ -51,13 +47,13 @@ public class Concert extends Event {
         if (halfh == 0) {
             halfh = 1.0;
         }
-        halfh=Math.round(halfh);
-        return super.getAttendees() * (int)halfh;
+        halfh = Math.round(halfh);
+        return super.getAttendees() * (int) halfh;
     }
 
     public Track[] getSetList() {
         setList = new Track[this.setList.length];
-        System.arraycopy(this.setList,0,setList,0,this.setList.length);
+        System.arraycopy(this.setList, 0, setList, 0, this.setList.length);
         return setList;
     }
 
@@ -71,16 +67,16 @@ public class Concert extends Event {
         return String.format("%02d:%02d", hour, minutes);
     }
 
-    public void ensureCapacity(int length){
+    public void ensureCapacity(int length) {
 
-        if(setList != null){
+        if (setList != null) {
 
-            if(length > setList.length-nextIdx-1){
+            if (length > setList.length - nextIdx - 1) {
 
-                Track[] tempTrackList = new Track[nextIdx+length];
+                Track[] tempTrackList = new Track[nextIdx + length];
                 int i = 0;
 
-                for(Track tempTrack : setList){
+                for (Track tempTrack : setList) {
 
                     tempTrackList[i] = tempTrack;
 
@@ -91,7 +87,7 @@ public class Concert extends Event {
                 setList = tempTrackList;
             }
 
-        }else{
+        } else {
             setList = new Track[length];
 
         }
@@ -102,7 +98,7 @@ public class Concert extends Event {
     public String toString() {
         String event = super.toString();
         String len = "unknown";
-        if(this.setList !=null) {
+        if (this.setList != null) {
             len = Integer.toString(this.setList.length);
         }
         return event + "\n" + len + " Tracks played " + this.calcTime(this.duration());

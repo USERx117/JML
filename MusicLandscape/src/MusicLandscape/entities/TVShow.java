@@ -6,35 +6,45 @@ public class TVShow extends Event {
 
     private int viewers;
 
-    public TVShow(){
-        this.name="unknown";
-        this.viewers=0;
+    public TVShow() {
+        this.name = null;
+        this.viewers = 0;
     }
 
-    public TVShow(Event e){
-        super.setArtist(e.getArtist());
-        super.setAttendees(e.getAttendees());
-        super.setDate(e.getDate());
-        super.setDescription(e.getDescription());
-        super.setVenue(e.getVenue());
+    public TVShow(Event e) {
+        super(e);
     }
 
-    public TVShow(TVShow tvs){
-        this.name=tvs.name;
-        this.viewers=tvs.viewers;
-        super.setArtist(tvs.getArtist());
+    public TVShow(TVShow tvs) {
+        this.name = tvs.name;
+        this.viewers = tvs.viewers;
+        if(tvs.getArtist()!=null){
+            super.setArtist(new Artist(tvs.getArtist()));
+        }else{
+            super.setArtist(new Artist());
+        }
+        if(tvs.getVenue()!=null){
+            super.setVenue(new Venue(tvs.getVenue()));
+        }else{
+            super.setVenue(new Venue());
+        }
+        if(tvs.getDate()!=null){
+            super.setDate(new Date(tvs.getDate()));
+        }else{
+            super.setDate(new Date());
+        }
+
         super.setAttendees(tvs.getAttendees());
-        super.setDate(tvs.getDate());
         super.setDescription(tvs.getDescription());
-        super.setVenue(tvs.getVenue());
+
     }
 
-    public String getName(){
+    public String getName() {
         return this.name;
     }
 
-    public void setName(String name){
-        this.name=name;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public int getViewers() {
@@ -42,20 +52,67 @@ public class TVShow extends Event {
     }
 
     public void setViewers(int viewers) {
-        this.viewers = viewers;
+        if(viewers>=0){
+            this.viewers = viewers;
+        }
     }
 
-    public int impact(){
-        return this.viewers*2;
+    public int impact() {
+        return (this.viewers+super.getAttendees()) * 2;
     }
 
     public String toString() {
-        return (super.getArtist().getName().isEmpty() ? super.getArtist().getName() : "unknown") +
-                " @ " + (this.name.isEmpty() ? this.name : "unknown") +
-                " on " + (super.getDate().dateString().isEmpty() ? super.getDate().dateString() : "unknown") +
-                "\n" + (super.getDescription().isEmpty() ? super.getDescription() : "unknown") +
-                "\n" +
-                "(" + this.viewers + " attending " +
-                "(" + this.impact() + "))";
+        String retString="";
+        if(super.getArtist()==null){
+            retString+="unknown";
+        }else{
+            if(!super.getArtist().getName().isEmpty()){
+                retString+=super.getArtist().getName();
+            }else{
+                retString+="unknown";
+            }
+        }
+        retString+=" @ ";
+        if(this.name==null){
+            retString+="unknown";
+        }else{
+            if(!this.name.isEmpty()){
+                retString+=this.name;
+            }else{
+                retString+="unknown";
+            }
+        }
+        retString+=" on ";
+        if (super.getDate() == null) {
+            retString+="unknown";
+        }else{
+            if(!super.getDate().toString().isEmpty()){
+                retString+=super.getDate().toString();
+            }else{
+                retString+="unknown";
+            }
+        }
+        retString+="\n";
+        if(super.getDescription()==null){
+            retString+="unknown";
+        }else{
+            if(!super.getDescription().isEmpty()){
+                retString+=super.getDescription();
+            }else{
+                retString+="unknown";
+            }
+        }
+        retString+="\n";
+        retString+="("+ (this.viewers+super.getAttendees())+ " attending ";
+        retString+="("+ this.impact() + "))";
+        return retString;
+
+//        return (super.getArtist().getName().isEmpty() ? super.getArtist().getName() : "unknown") +
+//                " @ " + (this.name.isEmpty() ? this.name : "unknown") +
+//                " on " + (super.getDate().dateString().isEmpty() ? super.getDate().dateString() : "unknown") +
+//                "\n" + (super.getDescription().isEmpty() ? super.getDescription() : "unknown") +
+//                "\n" +
+//                "(" + this.viewers + " attending " +
+//                "(" + this.impact() + "))";
     }
 }

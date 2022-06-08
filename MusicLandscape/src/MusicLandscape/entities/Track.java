@@ -1,35 +1,33 @@
 package MusicLandscape.entities;
 
-import org.testng.util.Strings;
 public class Track {
     private String title;
     private int duration;
-    private Artist writer = new Artist();
-    private Artist performer = new Artist();
+    private Artist writer;
+    private Artist performer;
     private int year;
 
-    public Track(String title) {
-        this.setTitle(title);
-    }
+    //public Track(String title) {
+     //   this.setTitle(title);
+   //}
 
     public Track() {
-        this.setDuration(0);
-        this.setYear(1900);
+        //this.setDuration(0);
+        //this.setYear(1900);
     }
 
-    public Track(Track t) {
-        this.title = t.title;
-        this.duration = t.duration;
-        this.setWriter(new Artist(t.getWriter()));
-        this.setPerformer(new Artist(t.getPerformer()));
-        this.year = t.year;
-    }
+//    public Track(Track t) {
+//        this.title = t.title;
+//        this.duration = t.duration;
+//        this.writer=t.writer;
+//        this.performer=t.performer;
+//        this.year = t.year;
+//    }
 
     public String getTitle() {
-        if (this.title == null){
+        if (this.title == null) {
             return "unknown title";
-        }
-        else {
+        } else {
             return title;
         }
     }
@@ -37,11 +35,9 @@ public class Track {
     public void setTitle(String title) {
         if (title == null) {
             this.title = null;
-        }
-        else if (title.trim().isEmpty()) {
+        } else if (title.trim().isEmpty()) {
             this.title = null;
-        }
-        else {
+        } else {
             this.title = title;
         }
     }
@@ -57,7 +53,6 @@ public class Track {
     }
 
     public Artist getWriter() {
-
         return writer;
     }
 
@@ -78,7 +73,6 @@ public class Track {
     }
 
     public int getYear() {
-
         return year;
     }
 
@@ -90,12 +84,14 @@ public class Track {
 
     public boolean writerIsKnown() {
         if (this.writer != null) {
-
             return this.writer.getName() != null;
-        }
-        else {
+        } else {
             return false;
         }
+    }
+
+    public String toString(){
+        return getString();
     }
 
     public String getString() {
@@ -124,11 +120,9 @@ public class Track {
     public String formatDigit(int digit) {
         if (digit < 0 || digit > 99) {
             return "";
-        }
-        else if (digit < 10) {
+        } else if (digit < 10) {
             return "0" + digit;
-        }
-        else {
+        } else {
             return "" + digit;
         }
     }

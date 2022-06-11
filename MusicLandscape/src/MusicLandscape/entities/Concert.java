@@ -24,6 +24,7 @@ public class Concert extends Event {
 
     public void resetSetList() {
         this.setList = new Track[0];
+        this.nextIdx=0;
     }
 
     public int nrTracks() {
@@ -52,18 +53,47 @@ public class Concert extends Event {
     }
 
     public Track[] getSetList() {
-        setList = new Track[this.setList.length];
-        System.arraycopy(this.setList, 0, setList, 0, this.setList.length);
-        return setList;
+        if(this.setList==null || this.setList.length==0){
+            return new Track[0];
+        }else{
+            Track[]tempset=new Track[this.setList.length];
+            for(int i=0;i<this.setList.length;i++){
+                tempset[i]=new Track(this.setList[i]);
+            }
+            return tempset;
+        }
+
+        //System.arraycopy(this.setList, 0, setList, 0, this.setList.length);
+       // return setList;
     }
 
     public void setSetList(Track[] setList) {
-        this.setList = setList;
+        if(setList!=null){
+            Track[]templst=new Track[getLengthWithoutNull(setList)];
+            int count=0;
+            for(int i=0; i<setList.length;i++){
+                if(setList[i]!=null){
+                    templst[count]=new Track(setList[i]);
+                    count++;
+                }
+            }
+            this.setList=templst;
+        }else{
+            this.setList=new Track[0];
+        }
+    }
+
+    private int getLengthWithoutNull(Object[]array){
+        int length=0;
+        for (Object obj : array) {
+            if ( obj != null ) length++;
+        }
+        return length;
     }
 
     public String calcTime(int t) {
-        int hour = (t / 3600) % 60;
-        int minutes = t / (60 * 1000);
+        int hour = (t / 3600) % 24;
+        int minutes = (t / 60) % 60;
         return String.format("%02d:%02d", hour, minutes);
     }
 
@@ -101,6 +131,6 @@ public class Concert extends Event {
         if (this.setList != null) {
             len = Integer.toString(this.setList.length);
         }
-        return event + "\n" + len + " Tracks played " + this.calcTime(this.duration());
+        return event + "\n" + len + " tracks played, total duration " + this.calcTime(this.duration())+".";
     }
 }

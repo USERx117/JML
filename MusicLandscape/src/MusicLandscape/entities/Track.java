@@ -8,21 +8,33 @@ public class Track {
     private int year;
 
     //public Track(String title) {
-     //   this.setTitle(title);
-   //}
+    //   this.setTitle(title);
+    //}
 
     public Track() {
         //this.setDuration(0);
         //this.setYear(1900);
     }
 
-//    public Track(Track t) {
-//        this.title = t.title;
-//        this.duration = t.duration;
-//        this.writer=t.writer;
-//        this.performer=t.performer;
-//        this.year = t.year;
-//    }
+    public Track(Track t) {
+        if(t.title!=null){
+            this.title= t.title;
+        }else{
+            this.title=null;
+        }
+        this.duration = t.duration;
+        if(t.writer!=null){
+            this.writer = t.writer;
+        }else{
+            this.writer=null;
+        }
+        if(t.performer!=null){
+            this.performer = t.performer;
+        }else{
+            this.performer=null;
+        }
+        this.year = t.year;
+    }
 
     public String getTitle() {
         if (this.title == null) {
@@ -53,6 +65,9 @@ public class Track {
     }
 
     public Artist getWriter() {
+        if(this.writer==null){
+            return new Artist();
+        }
         return writer;
     }
 
@@ -63,6 +78,9 @@ public class Track {
     }
 
     public Artist getPerformer() {
+        if(this.performer==null){
+            return new Artist();
+        }
         return performer;
     }
 
@@ -90,7 +108,7 @@ public class Track {
         }
     }
 
-    public String toString(){
+    public String toString() {
         return getString();
     }
 
